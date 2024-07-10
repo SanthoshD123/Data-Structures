@@ -1,0 +1,46 @@
+class BTreeNode:
+    def __init__(self, leaf=True):
+        self.leaf = leaf
+        self.keys = []
+        self.children = []
+
+    def display(self, level=0):
+        print(f"Level {level}: {self.keys}")
+        if not self.leaf:
+            for child in self.children:
+                child.display(level + 1)
+
+class BTree:
+    def __init__(self, t):
+        self.root = BTreeNode(True)
+        self.t = t
+
+    def insert(self, k):
+        root = self.root
+        if len(root.keys) == (2 * self.t) - 1:
+            temp = BTreeNode()
+            self.root = temp
+            temp.children.append(root)
+            self.split_child(temp, 0)
+            self.insert_non_full(temp, k)
+        else:
+            self.insert_non_full(root, k)
+
+    def insert_non_full(self, x, k):
+        # Implementation of insertion in a non-full node
+        # ...
+
+    def split_child(self, x, i):
+        # Implementation of splitting a child node
+        # ...
+
+def main():
+    B = BTree(3)
+    keys = [10, 20, 5, 6, 12, 30, 7, 17]
+    for key in keys:
+        B.insert(key)
+    print("B-tree structure:")
+    B.display()
+
+if __name__ == '__main__':
+    main()
